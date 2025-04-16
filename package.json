@@ -1,6 +1,6 @@
 {
   "name": "@qubit-ltd/logging",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "A simple JavaScript logging framework",
   "author": "Haixing Hu",
   "license": "Apache-2.0",
