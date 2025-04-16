@@ -11,6 +11,16 @@ logging capabilities through decorators for class methods and properties.
 This library is designed to seamlessly integrate with [Vue.js class components], 
 offering an elegant solution for handling logging in your JavaScript projects.
 
+## Features
+
+- 📝 Simple and flexible logging interface with different log levels
+- 🔍 Support for formatted log messages with placeholders
+- 🎯 Decorators for automatic method logging and class logger integration
+- 🔄 Seamless integration with Vue.js class components
+- 🎛️ Configurable logging levels and appenders
+- 🌐 Global and individual logger management
+- 📋 Browser console and custom appender support
+
 ## Installation
 
 To install the library, use either npm or yarn:
@@ -41,6 +51,28 @@ You can retrieve a `Logger` instance by calling the static method
     `ERROR`, `NONE`). Case-insensitive. If omitted, the existing logging level
     of the logger will be used, or the default logging level will be assigned to
     a new logger. 
+
+Example:
+
+```javascript
+import Logger from '@qubit-ltd/logging';
+
+// Create a logger with default settings
+const logger1 = Logger.getLogger('MyLogger');
+
+// Create a logger with custom level
+const logger2 = Logger.getLogger('DebugLogger', { level: 'DEBUG' });
+
+// Create a logger with custom appender
+const customAppender = {
+  trace: (message, ...args) => { /* custom trace implementation */ },
+  debug: (message, ...args) => { /* custom debug implementation */ },
+  info: (message, ...args) => { /* custom info implementation */ },
+  warn: (message, ...args) => { /* custom warn implementation */ },
+  error: (message, ...args) => { /* custom error implementation */ },
+};
+const logger3 = Logger.getLogger('CustomLogger', { appender: customAppender, level: 'INFO' });
+```
 
 ### Logging Messages
 
@@ -82,7 +114,33 @@ logger.log(level, 'This is an %s message with argument %s and argument %o', leve
 
 Adjust the logging level for a logger using `logger.setLevel(level)`.
 
-Available levels: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`, `NONE` (case-insensitive).
+Available levels (from most to least verbose):
+- `TRACE`: Most detailed information for debugging purposes
+- `DEBUG`: General debugging information
+- `INFO`: General information about application progress
+- `WARN`: Warning situations that might require attention
+- `ERROR`: Error conditions that need handling
+- `NONE`: Completely disable logging
+
+All level names are case-insensitive.
+
+Example:
+
+```javascript
+const logger = Logger.getLogger('MyClass');
+
+// Change the level to only show warnings and errors
+logger.setLevel('WARN');
+
+// These won't be displayed because they're below the WARN level
+logger.trace('This trace message will not be displayed');
+logger.debug('This debug message will not be displayed');
+logger.info('This info message will not be displayed');
+
+// These will be displayed
+logger.warn('This warning message will be displayed');
+logger.error('This error message will be displayed');
+```
 
 ### Set the Logging Appender
 
@@ -98,6 +156,16 @@ Example:
 ```javascript
 const logger = Logger.getLogger('MyClass');
 logger.setAppender(console);    // Outputs log messages to the console.
+
+// Or create a custom appender that adds timestamps to all logs
+const timestampAppender = {
+  trace: (message, ...args) => console.trace(`[${new Date().toISOString()}] ${message}`, ...args),
+  debug: (message, ...args) => console.debug(`[${new Date().toISOString()}] ${message}`, ...args),
+  info: (message, ...args) => console.info(`[${new Date().toISOString()}] ${message}`, ...args),
+  warn: (message, ...args) => console.warn(`[${new Date().toISOString()}] ${message}`, ...args),
+  error: (message, ...args) => console.error(`[${new Date().toISOString()}] ${message}`, ...args),
+};
+logger.setAppender(timestampAppender);
 ```
 
 ### Enable or Disable Logging
@@ -106,11 +174,49 @@ logger.setAppender(console);    // Outputs log messages to the console.
 - `logger.disable()`: Disable logging.
 - `logger.setEnabled(enabled)`: Dynamically control logging.
 
+Example:
+
+```javascript
+const logger = Logger.getLogger('MyClass');
+
+// Disable all logging temporarily
+logger.disable();
+logger.info('This message will not be logged');
+
+// Re-enable logging
+logger.enable();
+logger.info('This message will be logged');
+
+// Use a condition to control logging
+const debugMode = process.env.NODE_ENV === 'development';
+logger.setEnabled(debugMode);
+```
+
 ### Managing Loggers
 
 - `Logger.clearAllLoggers()`: Clears all registered loggers.
 - `Logger.getLevel(name)`: Retrieves the logging level for a specific logger.
 - `Logger.setLevel(name, level)`: Sets the logging level for a specific logger.
+
+Example:
+
+```javascript
+// Create multiple loggers
+const apiLogger = Logger.getLogger('API');
+const uiLogger = Logger.getLogger('UI');
+const dbLogger = Logger.getLogger('Database');
+
+// Change a specific logger's level without accessing its instance
+Logger.setLevel('API', 'DEBUG');
+Logger.setLevel('Database', 'ERROR');
+
+// Get a logger's current level
+const uiLevel = Logger.getLevel('UI');
+console.log(`UI Logger level: ${uiLevel}`);
+
+// Clear all loggers when shutting down the application
+Logger.clearAllLoggers();
+```
 
 ### Default Levels and Appenders
 
@@ -126,6 +232,23 @@ without specifying the level or appender.
 - `Logger.resetDefaultAppender()`:  Resets the default logging appender to the 
   factory value.
 
+Example:
+
+```javascript
+// Get the current default level
+const defaultLevel = Logger.getDefaultLevel();
+console.log(`Default logging level: ${defaultLevel}`);
+
+// Change the default level for all new loggers
+Logger.setDefaultLevel('DEBUG');
+
+// All new loggers will now have DEBUG level by default
+const logger = Logger.getLogger('NewLogger'); // Will have DEBUG level
+
+// Reset to the original factory default level
+Logger.resetDefaultLevel();
+```
+
 ### Global Loggers Management
 
 - `Logger.setAllLevels(level)`: Applies a logging level to all existing loggers.
@@ -136,12 +259,44 @@ without specifying the level or appender.
 - `Logger.resetAllAppenders()`: Resets the logging appender of all existing loggers
   to the default logging appender.
 
+Example:
+
+```javascript
+// Create several loggers with different levels
+const logger1 = Logger.getLogger('Logger1', { level: 'TRACE' });
+const logger2 = Logger.getLogger('Logger2', { level: 'INFO' });
+const logger3 = Logger.getLogger('Logger3', { level: 'ERROR' });
+
+// Change all loggers to WARNING level at once
+Logger.setAllLevels('WARN');
+
+// Now all loggers will only display WARN and ERROR messages
+logger1.info('This won't be displayed');
+logger2.warn('This will be displayed');
+logger3.error('This will be displayed');
+
+// Reset all loggers to use the default level
+Logger.resetAllLevels();
+
+// Apply a custom appender to all existing loggers
+const fileAppender = { /* ... implementation of logging to a file ... */ };
+Logger.setAllAppenders(fileAppender);
+```
+
 ### Reset to Factory Defaults
 
 - `Logger.reset()`: Resets all loggers to the factory default settings. This
   includes clearing all existing loggers, and resetting the default logging 
   level and the default logging appender.
   
+Example:
+
+```javascript
+// After making many modifications to loggers and defaults
+// This single call resets everything to factory settings
+Logger.reset();
+```
+
 ## The `@Log` Decorator
 
 The `@Log` decorator automatically logs the method signature, including the 
@@ -156,17 +311,29 @@ class Person {
   @Log
   eat(meal) {
     // method implementation
+    return `Eating ${meal.name}`;
+  }
+  
+  // Custom options for the Log decorator
+  @Log({ level: 'INFO', withResult: true })
+  calculateCalories(food, amount) {
+    const calories = food.caloriesPerUnit * amount;
+    return calories;
   }
 }
 
 const person = new Person();
-const meal = new Meal();
-person.eat(meal); // The log will print the method calling signature
+const meal = { name: 'Breakfast', type: 'healthy' };
+person.eat(meal); 
+// Logs: "Person.eat({"name":"Breakfast","type":"healthy"})"
+
+const calories = person.calculateCalories({ caloriesPerUnit: 50 }, 4);
+// Logs: "Person.calculateCalories({"caloriesPerUnit":50}, 4) => 200"
 ```
 
 ## The `@HasLogger` Decorator
 
-The `@HasLogger` decorator adds a named logger to a class, which is accessibl
+The `@HasLogger` decorator adds a named logger to a class, which is accessible
 via the `logger` property.
 
 Example:
@@ -179,7 +346,20 @@ class MyClass {
   foo() {
     this.logger.debug('This is MyClass.foo()');
   }
+  
+  bar(param) {
+    this.logger.info('Processing with parameter: %o', param);
+    // do something with param
+    if (param.value < 0) {
+      this.logger.warn('Negative value detected: %d', param.value);
+    }
+    return param.value * 2;
+  }
 }
+
+const instance = new MyClass();
+instance.foo();
+instance.bar({ value: -5 });
 ```
 
 ## Using with Vue.js Class Components
@@ -201,6 +381,21 @@ class MyComponent {
   @Log
   foo() {
     this.logger.debug('This is MyComponent.foo()');
+    this.message = 'clicked at ' + new Date().toLocaleTimeString();
+  }
+  
+  @Log({ level: 'INFO' })
+  async fetchData() {
+    try {
+      this.logger.info('Fetching data from API...');
+      const response = await fetch('/api/data');
+      const data = await response.json();
+      this.logger.info('Data received: %o', data);
+      return data;
+    } catch (error) {
+      this.logger.error('Failed to fetch data: %o', error);
+      throw error;
+    }
   }
 }
 
@@ -209,10 +404,76 @@ export default toVue(MyComponent);
 
 **Note**: The `@HasLogger` decorator must be placed **after** the `@Component` decorator. 
 
+## Advanced Usage
+
+### Creating a Custom Appender
+
+You can create custom appenders to direct logs to different destinations:
+
+```javascript
+// File logging appender (Node.js example)
+import fs from 'fs';
+
+const fileAppender = {
+  _writeToFile(level, message, ...args) {
+    const formattedArgs = args.map(arg => 
+      typeof arg === 'object' ? JSON.stringify(arg) : String(arg)
+    );
+    const logEntry = `[${new Date().toISOString()}] [${level}] ${message} ${formattedArgs.join(' ')}\n`;
+    fs.appendFileSync('application.log', logEntry);
+  },
+  trace: function(message, ...args) { this._writeToFile('TRACE', message, ...args); },
+  debug: function(message, ...args) { this._writeToFile('DEBUG', message, ...args); },
+  info: function(message, ...args) { this._writeToFile('INFO', message, ...args); },
+  warn: function(message, ...args) { this._writeToFile('WARN', message, ...args); },
+  error: function(message, ...args) { this._writeToFile('ERROR', message, ...args); }
+};
+
+// Use the custom appender
+const logger = Logger.getLogger('AppLogger', { appender: fileAppender });
+```
+
+### Conditional Logging
+
+```javascript
+import Logger from '@qubit-ltd/logging';
+
+function processData(data, options = {}) {
+  const logger = Logger.getLogger('DataProcessor');
+  
+  // Enable debug logging only when explicitly requested
+  if (options.debug) {
+    logger.setLevel('DEBUG');
+  } else {
+    logger.setLevel('INFO');
+  }
+  
+  logger.debug('Processing data with options: %o', options);
+  // rest of the function
+}
+```
+
 ## <span id="contributing">Contributing</span>
 
 If you find any issues or have suggestions for improvements, please feel free
 to open an issue or submit a pull request to the [GitHub repository].
+
+### Development Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/Haixing-Hu/js-logging.git
+cd js-logging
+
+# Install dependencies
+yarn install
+
+# Run tests
+yarn test
+
+# Build the library
+yarn build
+```
 
 ## <span id="license">License</span>
 
