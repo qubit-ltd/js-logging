@@ -36,7 +36,7 @@ import fixFirstArgument from './fix-first-argument';
 function bindWithProxy(logger, method, level, appender) {
   const prefix = getLoggingPrefix(logger, level);
   logger[method] = new Proxy(appender[method], {
-    apply: (target, thisArg, args) => target.apply(thisArg, fixFirstArgument(prefix, args)),
+    apply: (target, thisArg, args) => target.apply(appender, fixFirstArgument(prefix, args)),
   });
 }
 
