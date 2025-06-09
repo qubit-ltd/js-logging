@@ -6,9 +6,9 @@
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Haixing-Hu/js-logging/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/Haixing-Hu/js-logging/tree/master)
 [![Coverage Status](https://coveralls.io/repos/github/Haixing-Hu/js-logging/badge.svg?branch=master)](https://coveralls.io/github/Haixing-Hu/js-logging?branch=master)
 
-[@qubit-ltd/logging] is a JavaScript library that provides powerful 
-logging capabilities through decorators for class methods and properties. 
-This library is designed to seamlessly integrate with [Vue.js class components], 
+[@qubit-ltd/logging] is a JavaScript library that provides powerful
+logging capabilities through decorators for class methods and properties.
+This library is designed to seamlessly integrate with [Vue.js class components],
 offering an elegant solution for handling logging in your JavaScript projects.
 
 ## Features
@@ -32,14 +32,14 @@ or
 yarn add @qubit-ltd/logging
 ```
 
-## The `Logger` Class
+## The Logger Class
 
 The `Logger` class provides a simple yet flexible logging interface.
 
 ### Get or create a Logger
 
 You can retrieve a `Logger` instance by calling the static method
-`Logger.getLogger(name, options)`, where 
+`Logger.getLogger(name, options)`, where
 - `name` is the identifier of the logger. If a logger with the same name exists,
   it will be returned; otherwise, a new one will be created.
 - `options` (optional) is an object that may include:
@@ -50,7 +50,7 @@ You can retrieve a `Logger` instance by calling the static method
   - `level: string`: defines the logging level (`TRACE`, `DEBUG`, `INFO`, `WARN`,
     `ERROR`, `NONE`). Case-insensitive. If omitted, the existing logging level
     of the logger will be used, or the default logging level will be assigned to
-    a new logger. 
+    a new logger.
 
 Example:
 
@@ -87,7 +87,7 @@ You can use placeholders in log messages to dynamically insert variables:
 
 - `%o` or `%O`: JavaScript object output. Clicking the object name opens
   more information about it in the inspector.
-- `%d` or` %i`: Integer output (supports formatting). For example, 
+- `%d` or` %i`: Integer output (supports formatting). For example,
   `logger.info('Foo %.2d', 1.1)` will output the number as two significant
   figures with a leading 0: `Foo 01`.
 - `%s`: String output.
@@ -220,16 +220,16 @@ Logger.clearAllLoggers();
 
 ### Default Levels and Appenders
 
-The default logging levels and appenders are used when creating a new logger 
+The default logging levels and appenders are used when creating a new logger
 without specifying the level or appender.
 
 - `Logger.getDefaultLevel()`: Gets the default logging level.
 - `Logger.setDefaultLevel(level)`: Sets the default logging level.
-- `Logger.resetDefaultLevel()`: Resets the default logging level to the 
+- `Logger.resetDefaultLevel()`: Resets the default logging level to the
   factory value.
 - `Logger.getDefaultAppender()`: Gets the default logging appender.
 - `Logger.setDefaultAppender(appender)`: Sets the default logging appender.
-- `Logger.resetDefaultAppender()`:  Resets the default logging appender to the 
+- `Logger.resetDefaultAppender()`:  Resets the default logging appender to the
   factory value.
 
 Example:
@@ -286,9 +286,9 @@ Logger.setAllAppenders(fileAppender);
 ### Reset to Factory Defaults
 
 - `Logger.reset()`: Resets all loggers to the factory default settings. This
-  includes clearing all existing loggers, and resetting the default logging 
+  includes clearing all existing loggers, and resetting the default logging
   level and the default logging appender.
-  
+
 Example:
 
 ```javascript
@@ -297,9 +297,9 @@ Example:
 Logger.reset();
 ```
 
-## The `@Log` Decorator
+## The @Log Decorator
 
-The `@Log` decorator automatically logs the method signature, including the 
+The `@Log` decorator automatically logs the method signature, including the
 class name, method name, and parameters.
 
 Example:
@@ -313,7 +313,7 @@ class Person {
     // method implementation
     return `Eating ${meal.name}`;
   }
-  
+
   // Custom options for the Log decorator
   @Log({ level: 'INFO', withResult: true })
   calculateCalories(food, amount) {
@@ -324,14 +324,14 @@ class Person {
 
 const person = new Person();
 const meal = { name: 'Breakfast', type: 'healthy' };
-person.eat(meal); 
+person.eat(meal);
 // Logs: "Person.eat({"name":"Breakfast","type":"healthy"})"
 
 const calories = person.calculateCalories({ caloriesPerUnit: 50 }, 4);
 // Logs: "Person.calculateCalories({"caloriesPerUnit":50}, 4) => 200"
 ```
 
-## The `@HasLogger` Decorator
+## The @HasLogger Decorator
 
 The `@HasLogger` decorator adds a named logger to a class, which is accessible
 via the `logger` property.
@@ -346,7 +346,7 @@ class MyClass {
   foo() {
     this.logger.debug('This is MyClass.foo()');
   }
-  
+
   bar(param) {
     this.logger.info('Processing with parameter: %o', param);
     // do something with param
@@ -375,15 +375,15 @@ import { Component, toVue } from '@qubit-ltd/vue3-class-component';
 })
 @HasLogger
 class MyComponent {
-  
+
   message = 'hello world';
-  
+
   @Log
   foo() {
     this.logger.debug('This is MyComponent.foo()');
     this.message = 'clicked at ' + new Date().toLocaleTimeString();
   }
-  
+
   @Log({ level: 'INFO' })
   async fetchData() {
     try {
@@ -402,7 +402,7 @@ class MyComponent {
 export default toVue(MyComponent);
 ```
 
-**Note**: The `@HasLogger` decorator must be placed **after** the `@Component` decorator. 
+**Note**: The `@HasLogger` decorator must be placed **after** the `@Component` decorator.
 
 ## Advanced Usage
 
@@ -416,7 +416,7 @@ import fs from 'fs';
 
 const fileAppender = {
   _writeToFile(level, message, ...args) {
-    const formattedArgs = args.map(arg => 
+    const formattedArgs = args.map(arg =>
       typeof arg === 'object' ? JSON.stringify(arg) : String(arg)
     );
     const logEntry = `[${new Date().toISOString()}] [${level}] ${message} ${formattedArgs.join(' ')}\n`;
@@ -440,14 +440,14 @@ import Logger from '@qubit-ltd/logging';
 
 function processData(data, options = {}) {
   const logger = Logger.getLogger('DataProcessor');
-  
+
   // Enable debug logging only when explicitly requested
   if (options.debug) {
     logger.setLevel('DEBUG');
   } else {
     logger.setLevel('INFO');
   }
-  
+
   logger.debug('Processing data with options: %o', options);
   // rest of the function
 }

@@ -30,7 +30,7 @@ npm install @qubit-ltd/logging
 yarn add @qubit-ltd/logging
 ```
 
-## `Logger` 类
+## Logger 类
 
 `Logger` 类提供了一个简单而灵活的日志记录接口。
 
@@ -277,7 +277,7 @@ Logger.setAllAppenders(fileAppender);
 Logger.reset();
 ```
 
-## `@Log` 装饰器
+## @Log 装饰器
 
 `@Log` 装饰器会自动记录方法签名，包括类名、方法名和参数。
 
@@ -292,7 +292,7 @@ class Person {
     // 方法实现
     return `正在吃${meal.name}`;
   }
-  
+
   // Log装饰器的自定义选项
   @Log({ level: 'INFO', withResult: true })
   calculateCalories(food, amount) {
@@ -303,14 +303,14 @@ class Person {
 
 const person = new Person();
 const meal = { name: '早餐', type: '健康' };
-person.eat(meal); 
+person.eat(meal);
 // 记录: "Person.eat({"name":"早餐","type":"健康"})"
 
 const calories = person.calculateCalories({ caloriesPerUnit: 50 }, 4);
 // 记录: "Person.calculateCalories({"caloriesPerUnit":50}, 4) => 200"
 ```
 
-## `@HasLogger` 装饰器
+## @HasLogger 装饰器
 
 `@HasLogger` 装饰器会为类添加一个命名的日志记录器，可以通过 `logger` 属性访问。
 
@@ -324,7 +324,7 @@ class MyClass {
   foo() {
     this.logger.debug('这是MyClass.foo()');
   }
-  
+
   bar(param) {
     this.logger.info('使用参数处理: %o', param);
     // 使用param做一些事情
@@ -353,15 +353,15 @@ import { Component, toVue } from '@qubit-ltd/vue3-class-component';
 })
 @HasLogger
 class MyComponent {
-  
+
   message = 'hello world';
-  
+
   @Log
   foo() {
     this.logger.debug('这是MyComponent.foo()');
     this.message = '点击于 ' + new Date().toLocaleTimeString();
   }
-  
+
   @Log({ level: 'INFO' })
   async fetchData() {
     try {
@@ -394,7 +394,7 @@ import fs from 'fs';
 
 const fileAppender = {
   _writeToFile(level, message, ...args) {
-    const formattedArgs = args.map(arg => 
+    const formattedArgs = args.map(arg =>
       typeof arg === 'object' ? JSON.stringify(arg) : String(arg)
     );
     const logEntry = `[${new Date().toISOString()}] [${level}] ${message} ${formattedArgs.join(' ')}\n`;
@@ -418,14 +418,14 @@ import Logger from '@qubit-ltd/logging';
 
 function processData(data, options = {}) {
   const logger = Logger.getLogger('DataProcessor');
-  
+
   // 仅在明确请求时启用调试日志
   if (options.debug) {
     logger.setLevel('DEBUG');
   } else {
     logger.setLevel('INFO');
   }
-  
+
   logger.debug('使用选项处理数据: %o', options);
   // 函数的其余部分
 }
