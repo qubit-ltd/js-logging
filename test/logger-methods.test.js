@@ -117,5 +117,15 @@ describe('测试 Logger 的日志方法', () => {
       expect(appender.logs.length).toBeGreaterThan(0);
       expect(appender.logs.some((log) => log.type === 'TRACE')).toBe(true);
     });
+
+    it('直接调用 Logger.prototype 上的空方法', () => {
+      // 这些测试确保 Logger.prototype 上的空方法被覆盖
+      // 这些方法在运行时会被 bindLoggingMethods 替换，但我们需要确保原始方法也被测试
+      expect(() => Logger.prototype.trace('test')).not.toThrow();
+      expect(() => Logger.prototype.debug('test')).not.toThrow();
+      expect(() => Logger.prototype.info('test')).not.toThrow();
+      expect(() => Logger.prototype.warn('test')).not.toThrow();
+      expect(() => Logger.prototype.error('test')).not.toThrow();
+    });
   });
 });
