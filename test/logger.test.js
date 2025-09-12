@@ -983,7 +983,7 @@ describe('Unit test of Logger', () => {
       Logger.setDefaultLevel('ERROR');
       Logger.setDefaultAppender(customAppender);
       const logger1 = Logger.getLogger('test1');
-      const logger2 = Logger.getLogger('test2');
+      const _ = Logger.getLogger('test2');
       Logger.setLoggerLevel('test1', 'WARN');
 
       // 验证设置已修改
