@@ -930,4 +930,81 @@ describe('Unit test of Logger', () => {
       expect(logger2.getLevel()).not.toBe(newLevel);
     });
   });
+
+  describe('Logger: clearAllLoggers', () => {
+    test('clearAllLoggers should remove all existing logger instances', () => {
+      // 创建一些 logger 实例
+      const logger1 = Logger.getLogger('test1');
+      const logger2 = Logger.getLogger('test2');
+      Logger.setLoggerLevel('test1', 'ERROR');
+      Logger.setLoggerLevel('test2', 'WARN');
+
+      // 验证 logger 实例存在且有自定义级别
+      expect(logger1.getLevel()).toBe('ERROR');
+      expect(logger2.getLevel()).toBe('WARN');
+      expect(Logger.getLoggerLevel('test1')).toBe('ERROR');
+      expect(Logger.getLoggerLevel('test2')).toBe('WARN');
+
+      // 清除所有 logger
+      Logger.clearAllLoggers();
+
+      // 验证级别映射被清除，返回默认级别
+      expect(Logger.getLoggerLevel('test1')).toBe(Logger.getDefaultLevel());
+      expect(Logger.getLoggerLevel('test2')).toBe(Logger.getDefaultLevel());
+
+      // 重新获取 logger 应该是新实例
+      const newLogger1 = Logger.getLogger('test1');
+      const newLogger2 = Logger.getLogger('test2');
+      expect(newLogger1.getLevel()).toBe(Logger.getDefaultLevel());
+      expect(newLogger2.getLevel()).toBe(Logger.getDefaultLevel());
+    });
+  });
+
+  describe('Logger: resetDefaultLevel', () => {
+    test('resetDefaultLevel should restore factory default level', () => {
+      // 修改默认级别
+      Logger.setDefaultLevel('ERROR');
+      expect(Logger.getDefaultLevel()).toBe('ERROR');
+
+      // 重置默认级别
+      Logger.resetDefaultLevel();
+      expect(Logger.getDefaultLevel()).toBe('DEBUG'); // 工厂默认值
+
+      // 新创建的 logger 应该使用重置后的默认级别
+      const logger = Logger.getLogger('test');
+      expect(logger.getLevel()).toBe('DEBUG');
+    });
+  });
+
+  describe('Logger: reset method', () => {
+    test('reset should restore all factory settings', () => {
+      // 修改各种设置
+      const customAppender = new CustomizedAppender();
+      Logger.setDefaultLevel('ERROR');
+      Logger.setDefaultAppender(customAppender);
+      const logger1 = Logger.getLogger('test1');
+      const logger2 = Logger.getLogger('test2');
+      Logger.setLoggerLevel('test1', 'WARN');
+
+      // 验证设置已修改
+      expect(Logger.getDefaultLevel()).toBe('ERROR');
+      expect(Logger.getDefaultAppender()).toBe(customAppender);
+      expect(Logger.getLoggerLevel('test1')).toBe('WARN');
+      expect(logger1.getLevel()).toBe('WARN');
+
+      // 执行重置
+      Logger.reset();
+
+      // 验证所有设置都被重置为工厂默认值
+      expect(Logger.getDefaultLevel()).toBe('DEBUG');
+      expect(Logger.getDefaultAppender()).toBe(console);
+      expect(Logger.getLoggerLevel('test1')).toBe('DEBUG');
+      expect(Logger.getLoggerLevel('test2')).toBe('DEBUG');
+
+      // 重新获取 logger 应该使用默认设置
+      const newLogger = Logger.getLogger('newTest');
+      expect(newLogger.getLevel()).toBe('DEBUG');
+      expect(newLogger.getAppender()).toBe(console);
+    });
+  });
 });
