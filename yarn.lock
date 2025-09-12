@@ -1869,13 +1869,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@qubit-ltd/jsdoc-minami@npm:^1.5.2":
-  version: 1.5.3
-  resolution: "@qubit-ltd/jsdoc-minami@npm:1.5.3"
+"@qubit-ltd/jsdoc-theme@npm:^1.3.2":
+  version: 1.3.2
+  resolution: "@qubit-ltd/jsdoc-theme@npm:1.3.2"
   dependencies:
-    jsdoc: "npm:^4.0.2"
-    taffydb: "npm:^2.7.3"
-  checksum: 10c0/465b5e9f4d460a7c728c480056483ecf9086687120da5dda386f90f0f722942618cf9bcf1de565a45d019b0e5b909fb62332a4b64627b41679f78d41af9fce1b
+    "@jsdoc/salty": "npm:^0.2.4"
+    fs-extra: "npm:^10.1.0"
+    html-minifier-terser: "npm:^7.2.0"
+    klaw-sync: "npm:^6.0.0"
+    lodash: "npm:^4.17.21"
+    showdown: "npm:^2.1.0"
+  peerDependencies:
+    jsdoc: ">=3.x <=4.x"
+  checksum: 10c0/5815840283d35f65a62168d5f890522b894b6c563fb5f2bdfac4dc0787fff41406e7261cb85bd8eb13158c5a1882c9d8399c68391aa54e8ffdb969b59e1a8240
   languageName: node
   linkType: hard
 
@@ -1896,7 +1902,7 @@ __metadata:
     "@haixing_hu/vue3-class-component": "npm:^2.3.1"
     "@jest/core": "npm:^29.7.0"
     "@qubit-ltd/eslint-config": "npm:^1.3.4"
-    "@qubit-ltd/jsdoc-minami": "npm:^1.5.2"
+    "@qubit-ltd/jsdoc-theme": "npm:^1.3.2"
     "@qubit-ltd/rollup-builder": "npm:^1.8.9"
     "@rollup/plugin-alias": "npm:^5.1.1"
     "@rollup/plugin-babel": "npm:^6.0.4"
@@ -1911,7 +1917,6 @@ __metadata:
     "@vue/vue3-jest": "npm:^29.2.6"
     babel-jest: "npm:^29.7.0"
     check-es-version: "npm:^1.5.1"
-    clean-jsdoc-theme: "npm:^4.3.0"
     core-js: "npm:^3.41.0"
     cross-env: "npm:^7.0.3"
     eslint: "npm:^8.57.1"
@@ -3205,22 +3210,6 @@ __metadata:
   dependencies:
     source-map: "npm:~0.6.0"
   checksum: 10c0/381de7523e23f3762eb180e327dcc0cedafaf8cb1cd8c26b7cc1fc56e0829a92e734729c4f955394d65ed72fb62f82d8baf78af34b33b8a7d41ebad2accdd6fb
-  languageName: node
-  linkType: hard
-
-"clean-jsdoc-theme@npm:^4.3.0":
-  version: 4.3.0
-  resolution: "clean-jsdoc-theme@npm:4.3.0"
-  dependencies:
-    "@jsdoc/salty": "npm:^0.2.4"
-    fs-extra: "npm:^10.1.0"
-    html-minifier-terser: "npm:^7.2.0"
-    klaw-sync: "npm:^6.0.0"
-    lodash: "npm:^4.17.21"
-    showdown: "npm:^2.1.0"
-  peerDependencies:
-    jsdoc: ">=3.x <=4.x"
-  checksum: 10c0/b7cfb5c702b9868c9a9978d04558f19a7ced15c70849747eec500ab23518fac00c79f98039ad4ac2a38cac860497875a80e08025dee2d43dd67ae0455ae7de16
   languageName: node
   linkType: hard
 
@@ -5762,7 +5751,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsdoc@npm:^4.0.2, jsdoc@npm:^4.0.4":
+"jsdoc@npm:^4.0.4":
   version: 4.0.4
   resolution: "jsdoc@npm:4.0.4"
   dependencies:
@@ -7697,13 +7686,6 @@ __metadata:
   version: 3.2.4
   resolution: "symbol-tree@npm:3.2.4"
   checksum: 10c0/dfbe201ae09ac6053d163578778c53aa860a784147ecf95705de0cd23f42c851e1be7889241495e95c37cabb058edb1052f141387bef68f705afc8f9dd358509
-  languageName: node
-  linkType: hard
-
-"taffydb@npm:^2.7.3":
-  version: 2.7.3
-  resolution: "taffydb@npm:2.7.3"
-  checksum: 10c0/4c0f6f2818491ed560553f12c06a49ee43fd40d504fc95b24e61e07d70496f34428ec638457e5738e9b0416b06fc67ebcf920c5b46e442834a9c20b95841dd55
   languageName: node
   linkType: hard
 
