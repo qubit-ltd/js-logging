@@ -143,21 +143,12 @@ describe('测试 bindLoggingMethods', () => {
     const appender = new CustomizedAppender();
     const level = 'ERROR';
 
-    // 手动添加一个NONE级别来测试
-    const originalNone = LOGGING_LEVELS.NONE;
-    LOGGING_LEVELS.NONE = Number.MAX_SAFE_INTEGER;
+    // 模拟getBrowserEngine返回Blink
+    getBrowserEngine.mockReturnValue('Blink');
 
-    try {
-      // 模拟getBrowserEngine返回Blink
-      getBrowserEngine.mockReturnValue('Blink');
+    bindLoggingMethods(logger, level, appender);
 
-      bindLoggingMethods(logger, level, appender);
-
-      // 验证没有绑定none方法
-      expect(logger.none).toBeUndefined();
-    } finally {
-      // 恢复原始值
-      LOGGING_LEVELS.NONE = originalNone;
-    }
+    // 验证没有绑定none方法
+    expect(logger.none).toBeUndefined();
   });
 });
