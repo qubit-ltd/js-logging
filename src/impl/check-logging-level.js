@@ -6,6 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
+import isString from './is-string';
 import LOGGING_LEVELS from './logging-levels';
 
 /**
@@ -17,7 +18,7 @@ import LOGGING_LEVELS from './logging-levels';
  * @private
  */
 function checkLoggingLevel(level) {
-  if (typeof level !== 'string') {
+  if (!isString(level)) {
     throw new TypeError('The logging level must be a string.');
   }
   if (LOGGING_LEVELS[level] === undefined) {
