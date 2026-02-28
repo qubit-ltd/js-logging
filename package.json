@@ -1,17 +1,17 @@
 {
   "name": "@qubit-ltd/logging",
-  "version": "1.4.13",
+  "version": "1.4.14",
   "description": "A simple JavaScript logging framework",
   "author": "Haixing Hu",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Haixing-Hu/js-logging.git"
+    "url": "git+https://github.com/qubit-ltd/js-logging.git"
   },
   "bugs": {
-    "url": "https://github.com/Haixing-Hu/js-logging/issues"
+    "url": "https://github.com/qubit-ltd/js-logging/issues"
   },
-  "homepage": "https://github.com/Haixing-Hu/js-logging",
+  "homepage": "https://github.com/qubit-ltd/js-logging",
   "keywords": [
     "javascript",
     "logging",
@@ -45,9 +45,7 @@
     "lint": "eslint --config eslint.config.mjs ./src ./test",
     "doc": "jsdoc -c jsdoc.json",
     "es5": "check-es-version -e 5 -s true",
-    "deploy": "npm run lint && npm run test && npm run build:all && npm publish --registry='https://npm.qubit.ltd/' --access public",
-    "deploy:public": "npm run lint && npm run test && npm run build:all && npm publish --registry='https://registry.npmjs.org/' --access public",
-    "deploy:all": "npm run deploy && npm publish --registry='https://registry.npmjs.org/' --access public"
+    "deploy": "npm run lint && npm run test && npm run build:all && npm publish --registry='https://registry.npmjs.org/' --access public"
   },
   "browserify": {
     "transform": [

@@ -3,8 +3,8 @@
 [![npm package](https://img.shields.io/npm/v/@qubit-ltd/logging.svg)](https://npmjs.com/package/@qubit-ltd/logging)
 [![License](https://img.shields.io/badge/License-Apache-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![English Document](https://img.shields.io/badge/Document-English-blue.svg)](README.md)
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/Haixing-Hu/js-logging/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/Haixing-Hu/js-logging/tree/master)
-[![Coverage Status](https://coveralls.io/repos/github/Haixing-Hu/js-logging/badge.svg?branch=master)](https://coveralls.io/github/Haixing-Hu/js-logging?branch=master)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/qubit-ltd/js-logging/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/qubit-ltd/js-logging/tree/master)
+[![Coverage Status](https://coveralls.io/repos/github/qubit-ltd/js-logging/badge.svg?branch=master)](https://coveralls.io/github/qubit-ltd/js-logging?branch=master)
 
 [@qubit-ltd/logging] 是一个 JavaScript 库，通过装饰器为类方法和属性提供强大的日志记录功能。
 该库旨在与[Vue.js 类组件]无缝集成，为处理 JavaScript 项目中的日志记录提供了优雅的解决方案。
@@ -439,7 +439,7 @@ function processData(data, options = {}) {
 
 ```bash
 # 克隆仓库
-git clone https://github.com/Haixing-Hu/js-logging.git
+git clone https://github.com/qubit-ltd/js-logging.git
 cd js-logging
 
 # 安装依赖
@@ -458,4 +458,4 @@ yarn build
 
 [@qubit-ltd/logging]: https://npmjs.com/package/@qubit-ltd/logging
 [Vue.js 类组件]: https://github.com/Haixing-Hu/vue3-class-component/
-[GitHub 仓库]: https://github.com/Haixing-Hu/js-logging
+[GitHub 仓库]: https://github.com/qubit-ltd/js-logging

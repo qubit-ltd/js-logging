@@ -3,8 +3,8 @@
 [![npm package](https://img.shields.io/npm/v/@qubit-ltd/logging.svg)](https://npmjs.com/package/@qubit-ltd/logging)
 [![License](https://img.shields.io/badge/License-Apache-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![中文文档](https://img.shields.io/badge/文档-中文版-blue.svg)](README.zh_CN.md)
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/Haixing-Hu/js-logging/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/Haixing-Hu/js-logging/tree/master)
-[![Coverage Status](https://coveralls.io/repos/github/Haixing-Hu/js-logging/badge.svg?branch=master)](https://coveralls.io/github/Haixing-Hu/js-logging?branch=master)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/qubit-ltd/js-logging/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/qubit-ltd/js-logging/tree/master)
+[![Coverage Status](https://coveralls.io/repos/github/qubit-ltd/js-logging/badge.svg?branch=master)](https://coveralls.io/github/qubit-ltd/js-logging?branch=master)
 
 [@qubit-ltd/logging] is a JavaScript library that provides powerful
 logging capabilities through decorators for class methods and properties.
@@ -462,7 +462,7 @@ to open an issue or submit a pull request to the [GitHub repository].
 
 ```bash
 # Clone the repository
-git clone https://github.com/Haixing-Hu/js-logging.git
+git clone https://github.com/qubit-ltd/js-logging.git
 cd js-logging
 
 # Install dependencies
@@ -482,4 +482,4 @@ See the [LICENSE](LICENSE) file for more details.
 
 [@qubit-ltd/logging]: https://npmjs.com/package/@qubit-ltd/logging
 [Vue.js class components]: https://github.com/Haixing-Hu/vue3-class-component/
-[GitHub repository]: https://github.com/Haixing-Hu/js-logging
+[GitHub repository]: https://github.com/qubit-ltd/js-logging
