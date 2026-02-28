@@ -7,6 +7,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
+import isString from './is-string';
+
 /**
  * Convert a string to uppercase.
  *
@@ -18,7 +20,7 @@
  * @private
  */
 function upperCaseString(value) {
-  if ((typeof value !== 'string') && (!(value instanceof String))) {
+  if (!isString(value)) {
     return value;
   }
   return value.toUpperCase();
