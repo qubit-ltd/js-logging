@@ -9,7 +9,6 @@
 import bindLoggingMethods from '../../src/impl/bind-logging-methods';
 import getBrowserEngine from '../../src/impl/get-browser-engine';
 import CustomizedAppender from '../helper/customized-appender';
-import LOGGING_LEVELS from '../../src/impl/logging-levels';
 
 // 模拟getBrowserEngine函数
 jest.mock('../../src/impl/get-browser-engine');

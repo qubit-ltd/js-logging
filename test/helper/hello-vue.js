@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import { Component, toVue } from '@haixing_hu/vue3-class-component';
+import { Component, toVue } from '@qubit-ltd/vue3-class-component';
 import { Log } from '../../src';
 
 // Encapsulate the Vue component to be tested

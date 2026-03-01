@@ -90,7 +90,7 @@ function vueLogDecorator(options, key, originalMethod) {
  *
  * Usage example:
  * ```js
- * import { Log } from '@haixing_hu/logging';
+ * import { Log } from '@qubit-ltd/logging';
  *
  * class Person {
  *   &#064;Log
@@ -120,7 +120,7 @@ export function Log(target, context) {
     throw new TypeError('The `@Log` can only decorate a class method.');
   }
   // decorate the class-style Vue component
-  // see the `createDecorator()` function in `@haixing_hu/vue3-class-component`
+  // see the `createDecorator()` function in `@qubit-ltd/vue3-class-component`
   const metadata = context.metadata;
   metadata[VUE3_CLASS_COMPONENT_DECORATORS_KEY] ??= [];
   metadata[VUE3_CLASS_COMPONENT_DECORATORS_KEY].push(

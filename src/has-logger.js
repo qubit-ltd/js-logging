@@ -16,7 +16,7 @@ import Logger from './logger';
  *
  * Example usage:
  * ```js
- * import { HasLogger } from '@haixing_hu/logging';
+ * import { HasLogger } from '@qubit-ltd/logging';
  *
  * &#064;HasLogger
  * class MyClass {
@@ -28,8 +28,8 @@ import Logger from './logger';
  *
  * The following is another example usage with the class component of Vue.js:
  * ```js
- * import { Component, toVue } from '@haixing_hu/vue3-class-component';
- * import { HasLogger, Log } from '@haixing_hu/logging';
+ * import { Component, toVue } from '@qubit-ltd/vue3-class-component';
+ * import { HasLogger, Log } from '@qubit-ltd/logging';
  *
  * &#064;Component({
  *   template: '<p &#064;click="foo">{{ message }}</p>',
